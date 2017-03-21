@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server/src/index.js",
+    "prestart": "mkdir -p sounds && npm run build",
+    "start": "node server/src/server.js",
     "dev": "webpack --progress --colors --watch --env development",
     "build": "webpack --progress --colors --env production",
     "test": "echo \"Error: no test specified\" && exit 1"

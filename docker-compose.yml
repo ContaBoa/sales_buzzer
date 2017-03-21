@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  sales_buzzer:
+    build: .
+    working_dir: /code
+    command: npm start
+    ports:
+      - '80:3000'
+    volumes:
+      - .:/code:rw
