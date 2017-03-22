@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prestart": "mkdir -p sounds && npm run build",
     "start": "node server/src/server.js",
     "dev": "webpack --progress --colors --watch --env development",
     "build": "webpack --progress --colors --env production",

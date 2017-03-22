@@ -9,3 +9,5 @@ services:
       - '80:3000'
     volumes:
       - .:/code:rw
+    devices:
+      - '/dev/snd'
