@@ -3,11 +3,9 @@ version: '2'
 services:
   sales_buzzer:
     build: .
-    working_dir: /code
+    working_dir: /usr/local/sales_buzzer
     command: npm start
     ports:
       - '80:3000'
-    volumes:
-      - .:/code:rw
     devices:
       - '/dev/snd'

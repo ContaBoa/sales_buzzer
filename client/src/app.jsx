@@ -4,7 +4,7 @@ import {Observable} from 'rxjs'
 
 const playSound = (sound) => {
   Observable.ajax({url: `/${sound}`, method: 'POST'})
-    .catch(error => console.log(error))
+    .catch(error => console.log(`Error ${error.status}`))
     .subscribe()
 }
 
@@ -26,6 +26,14 @@ const App = () =>
       <div className="mdl-cell mdl-cell--3-col">
         <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
           onClick={() => playSound('downgrade')}>downgrade</button>
+      </div>
+      <div className="mdl-cell mdl-cell--3-col">
+        <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
+          onClick={() => playSound('churn')}>churn</button>
+      </div>
+      <div className="mdl-cell mdl-cell--3-col">
+        <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
+          onClick={() => playSound('youwin')}>you win</button>
       </div>
     </div>
   </div>

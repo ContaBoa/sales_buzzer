@@ -28,17 +28,21 @@ const checkSounds = () => {
         }
     })
   }
-  downloadIfAbsent('sounds/sale.wav', 'http://themushroomkingdom.net/sounds/wav/smb/smb_vine.wav')
-  downloadIfAbsent('sounds/lead.wav', 'http://themushroomkingdom.net/sounds/wav/smb/smb_coin.wav')
-  downloadIfAbsent('sounds/upsell.wav', 'http://themushroomkingdom.net/sounds/wav/smb/smb_powerup.wav')
-  downloadIfAbsent('sounds/downgrade.wav', 'http://themushroomkingdom.net/sounds/wav/smb/smb_pipe.wav')
+  downloadIfAbsent('sounds/sale', 'https://www.myinstants.com/media/sounds/audiojoiner120623175716.mp3')
+  downloadIfAbsent('sounds/lead', 'http://themushroomkingdom.net/sounds/wav/smb/smb_coin.wav')
+  downloadIfAbsent('sounds/upsell', 'http://themushroomkingdom.net/sounds/wav/smb/smb_powerup.wav')
+  downloadIfAbsent('sounds/downgrade', 'http://themushroomkingdom.net/sounds/wav/smb/smb_pipe.wav')
+  downloadIfAbsent('sounds/churn', 'https://www.myinstants.com/media/sounds/super-mario-bros-ost-_-8-youre-dead.mp3')
+  downloadIfAbsent('sounds/youwin', 'https://www.myinstants.com/media/sounds/street-fighter-ii-you-win-perfect.mp3')
 }
 
 
-app.post('/sale', (req, res) => handleSoundResponse(res, 'sounds/sale.wav'))
-app.post('/lead', (req, res) => handleSoundResponse(res, 'sounds/lead.wav'))
-app.post('/upsell', (req, res) => handleSoundResponse(res, 'sounds/upsell.wav'))
-app.post('/downgrade', (req, res) => handleSoundResponse(res, 'sounds/downgrade.wav'))
+app.post('/sale', (req, res) => handleSoundResponse(res, 'sounds/sale'))
+app.post('/lead', (req, res) => handleSoundResponse(res, 'sounds/lead'))
+app.post('/upsell', (req, res) => handleSoundResponse(res, 'sounds/upsell'))
+app.post('/downgrade', (req, res) => handleSoundResponse(res, 'sounds/downgrade'))
+app.post('/churn', (req, res) => handleSoundResponse(res, 'sounds/churn'))
+app.post('/youwin', (req, res) => handleSoundResponse(res, 'sounds/youwin'))
 
 app.use(express.static('client/build'))
 app.use(express.static('client/styles'))

@@ -1,9 +1,11 @@
-FROM node:6.10-alpine
+FROM hypriot/rpi-node:7.6
 MAINTAINER Felipe Carlos Werlang <felipewer@gmail.com>
 
-RUN apk add --no-cache mpg123
+RUN apt-get update && apt-get -y --no-install-recommends install \
+    sox \
+    && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /code/
+WORKDIR /usr/local/sales_buzzer/
 
 COPY client ./client/
 COPY server ./server/
@@ -11,12 +13,10 @@ COPY package.json ./
 COPY webpack.config.js ./
 
 RUN npm install -g webpack && \
-    npm install
-
-RUN mkdir -p sounds && \
+    npm install && \
+    mkdir -p sounds && \
     npm run build
 
 EXPOSE 3000
-VOLUME /code
 
 CMD ["npm", "start"]
