@@ -3,6 +3,7 @@ MAINTAINER Felipe Carlos Werlang <felipewer@gmail.com>
 
 RUN apt-get update && apt-get -y --no-install-recommends install \
     sox \
+    libsox-fmt-all \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /usr/local/sales_buzzer/
