@@ -1,5 +1,4 @@
-FROM hypriot/rpi-node:7.6
-MAINTAINER Felipe Carlos Werlang <felipewer@gmail.com>
+FROM node:8.5
 
 RUN apt-get update && apt-get -y --no-install-recommends install \
     sox \
@@ -8,16 +7,11 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
 
 WORKDIR /usr/local/sales_buzzer/
 
-COPY client ./client/
-COPY server ./server/
+COPY src ./src/
 COPY package.json ./
-COPY webpack.config.js ./
 
-RUN npm install -g webpack && \
-    npm install && \
-    mkdir -p sounds && \
-    npm run build
+RUN yarn install
 
-EXPOSE 3000
+EXPOSE 8080
 
 CMD ["npm", "start"]

@@ -1,2 +1,17 @@
-# sales_buzzer
-API to play alert sounds for sale events
+# API to play alert sounds for sale events
+
+### Setup
+
+```
+yarn install
+```
+
+### Run
+
+```
+npm start
+```
+
+### Endpoints
+
+- `/sounds`
