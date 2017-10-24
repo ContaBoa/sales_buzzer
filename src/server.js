@@ -1,32 +1,40 @@
 const bodyParser = require('body-parser');
-const express = require('express')
-const fs = require('fs')
-const request = require('request')
-const player = require('play-sound')(opts = {})
+const express = require('express');
+const fs = require('fs');
+const request = require('request');
+const player = require('play-sound')(opts = {});
+const Rx = require('rxjs/Rx');
 
-const app = express()
-const soundsDir = './sounds'
+require('dotenv').config()
 
-app.use(bodyParser.json())
+const soundsDir = process.env.SOUNDS_DIR;
+const port = process.env.PORT;
+const postSecret = process.env.POST_SECRET;
+
+const app = express();
+app.use(bodyParser.json());
+
+const sound$ = new Rx.Subject();
+sound$
+.observeOn(Rx.Scheduler.async)
+.subscribe(sound =>
+  player.play(sound, err => {
+    if(err) console.log(err);
+  })
+);
 
 const handleSound = (response, soundPath) => {
   fs.open(soundPath, 'r', (err, fd) => {
     if(err){
       if (err.code === 'ENOENT') {
-        response.status(404).send()
+        response.status(404).send();
       }else{
-        console.log(err)
-        response.status(500).send()
+        console.log(err);
+        response.status(500).send();
       }
     }else{
-      player.play(soundPath, (err) => {
-        if(err){
-          console.log(err)
-          response.status(500).send()
-        }else{
-          response.status(200).send()
-        }
-      })
+      sound$.next(soundPath);
+      response.status(200).send();
     }
   })
 }
@@ -37,7 +45,7 @@ const isWellFormed = (reqBody) => {
   return true
 }
 
-app.post('/sounds', (req, res) => {
+app.post(`/${postSecret}/sounds`, (req, res) => {
   if (!isWellFormed(req.body)) {
     console.log('crazy validation')
     res.status(400).send()
@@ -83,6 +91,6 @@ app.get('/sounds/:soundName', (req, res) => {
 
 if (!fs.existsSync(soundsDir)) fs.mkdirSync(soundsDir)
 
-app.listen(8080, () => {
-    console.log('Sales Buzzer listening on port 8080!')
+app.listen(port, () => {
+    console.log(`Sales Buzzer listening on port ${port}!`)
 });
