@@ -1,4 +1,5 @@
 const bodyParser = require('body-parser');
+const { spawn } = require('child_process');
 const express = require('express');
 const fs = require('fs');
 const request = require('request');
@@ -73,6 +74,12 @@ app.post(`/${postSecret}/sounds`, (req, res) => {
       .pipe(fs.createWriteStream('', {fd: fd}))
     }
   })
+})
+
+app.post(`/${postSecret}/speechs`, (req, res) => {
+  const {speech} = req.body;
+  spawn('say', [speech]);
+  res.status(204).send()
 })
 
 app.get('/sounds', (req, res) => {
