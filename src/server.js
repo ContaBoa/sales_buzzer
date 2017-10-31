@@ -33,6 +33,7 @@ const handleSound = (response, soundPath) => {
         response.status(500).send();
       }
     }else{
+      fs.close(fd);
       sound$.next(soundPath);
       response.status(200).send();
     }
