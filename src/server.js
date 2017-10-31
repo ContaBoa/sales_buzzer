@@ -11,6 +11,7 @@ require('dotenv').config()
 const soundsDir = process.env.SOUNDS_DIR;
 const port = process.env.PORT;
 const postSecret = process.env.POST_SECRET;
+console.log(`POST to /${postSecret}/sounds to upload new files`);
 
 const app = express();
 app.use(bodyParser.json());
@@ -78,7 +79,7 @@ app.post(`/${postSecret}/sounds`, (req, res) => {
 
 app.post(`/${postSecret}/speechs`, (req, res) => {
   const {speech} = req.body;
-  spawn('say', [speech]);
+  spawn('say', ['-v','Vicki', speech]);
   res.status(204).send()
 })
 
